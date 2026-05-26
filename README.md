@@ -1,59 +1,134 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Aplikasi Velodrive
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Velodrive adalah aplikasi manajemen rental mobil berbasis Laravel. Aplikasi ini menyediakan pengalaman terpisah untuk pelanggan dan administrator.
 
-## About Laravel
+## Cara Menggunakan Aplikasi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Alur pelanggan
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Buka halaman utama di `http://127.0.0.1:8000`.
+2. Daftar akun baru atau masuk dengan akun yang sudah terdaftar.
+3. Telusuri daftar mobil yang tersedia dan lihat detail rental.
+4. Buat invoice untuk menyewa mobil.
+5. Unggah bukti pembayaran pada bagian transaksi.
+6. Tinjau rental aktif dan riwayat penyewaan.
+7. Perbarui data profil dan kata sandi di halaman profil.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Alur admin
 
-## Learning Laravel
+1. Masuk sebagai pengguna admin.
+2. Akses `admin/dashboard` untuk melihat ringkasan data.
+3. Kelola mobil di menu `Kelola Mobil`.
+4. Kelola invoice di menu `Kelola Invoice`.
+5. Verifikasi atau tolak transaksi di menu `Kelola Transaksi`.
+6. Kelola pengguna di menu `Kelola User`.
+7. Ekspor data laporan di menu `Laporan`.
+8. Perbarui profil admin dan kata sandi di halaman `Profile`.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Persiapan dan Build
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Salin file lingkungan:
 
-## Laravel Sponsors
+   ```bash
+   cp .env.example .env
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Instal dependensi PHP:
 
-### Premium Partners
+   ```bash
+   composer install
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3. Instal dependensi Node:
 
-## Contributing
+   ```bash
+   npm install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Buat kunci aplikasi:
 
-## Code of Conduct
+   ```bash
+   php artisan key:generate
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. Jalankan migrasi dan seeder jika diperlukan:
 
-## Security Vulnerabilities
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. Build aset frontend:
 
-## License
+   ```bash
+   npm run dev
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7. Jalankan aplikasi secara lokal:
+
+   ```bash
+   php artisan serve
+   ```
+
+## Fitur Utama
+
+- Dashboard berbasis peran untuk pengguna dan admin
+- Penelusuran mobil dan pembuatan invoice penyewaan
+- Unggah bukti pembayaran dan verifikasi transaksi
+- Manajemen profil untuk semua pengguna
+- Styling menggunakan Tailwind CSS dan interaktivitas Alpine.js
+- Notifikasi menggunakan SweetAlert2
+
+## Struktur Proyek
+
+### Root
+
+- `artisan` — entrypoint CLI Laravel
+- `composer.json` — manifest dependensi PHP
+- `package.json` — manifest dependensi JavaScript
+- `tailwind.config.cjs` — konfigurasi Tailwind CSS v4
+- `postcss.config.cjs` — konfigurasi PostCSS
+- `vite.config.js` — konfigurasi build Vite
+- `IMPLEMENTATION.md` — rencana implementasi migrasi
+- `structure.md` — ringkasan struktur proyek
+
+### app
+
+- `app/Http/Controllers/` — controller aplikasi
+- `app/Models/` — model Eloquent
+- `app/Notifications/` — kelas notifikasi
+- `app/Providers/` — service provider
+
+### resources
+
+- `resources/css/` — berkas entry Tailwind CSS
+- `resources/js/` — berkas entry Alpine.js dan JavaScript
+- `resources/views/` — template Blade untuk layout, admin, dan pengguna
+
+### public
+
+- `public/index.php` — entrypoint publik
+- `public/css/` — aset CSS hasil build
+- `public/image/` — gambar statis
+
+### routes
+
+- `routes/web.php` — route web
+- `routes/console.php` — perintah konsol
+
+### database
+
+- `database/migrations/` — migrasi skema basis data
+- `database/seeders/` — kelas seeder basis data
+- `database/factories/` — factory model
+
+### tests
+
+- `tests/Feature/` — pengujian fitur
+- `tests/Unit/` — pengujian unit
+
+## Catatan
+
+- Aplikasi ini menggunakan template Laravel Blade.
+- Frontend menggunakan Tailwind CSS dan Alpine.js.
+- Dashboard admin dan pengguna dipisahkan berdasarkan route dan peran.
