@@ -1,134 +1,190 @@
-# Aplikasi Velodrive
+# Velodrive Web App
 
-Velodrive adalah aplikasi manajemen rental mobil berbasis Laravel. Aplikasi ini menyediakan pengalaman terpisah untuk pelanggan dan administrator.
+Velodrive is a car rental management web application built on Laravel. It provides separate experiences for customers and administrators.
 
-## Cara Menggunakan Aplikasi
+## Application Usage
 
-### Alur pelanggan
+### Customer workflow
 
-1. Buka halaman utama di `http://127.0.0.1:8000`.
-2. Daftar akun baru atau masuk dengan akun yang sudah terdaftar.
-3. Telusuri daftar mobil yang tersedia dan lihat detail rental.
-4. Buat invoice untuk menyewa mobil.
-5. Unggah bukti pembayaran pada bagian transaksi.
-6. Tinjau rental aktif dan riwayat penyewaan.
-7. Perbarui data profil dan kata sandi di halaman profil.
+1. Open the home page at `http://127.0.0.1:8000`.
+2. Register a new account or log in with existing credentials.
+3. Browse available cars and check rental details.
+4. Create invoices to rent cars.
+5. Upload payment proof in the transaction section.
+6. Review active rentals and rental history.
+7. Update profile information and password on the profile page.
 
-### Alur admin
+### Admin workflow
 
-1. Masuk sebagai pengguna admin.
-2. Akses `admin/dashboard` untuk melihat ringkasan data.
-3. Kelola mobil di menu `Kelola Mobil`.
-4. Kelola invoice di menu `Kelola Invoice`.
-5. Verifikasi atau tolak transaksi di menu `Kelola Transaksi`.
-6. Kelola pengguna di menu `Kelola User`.
-7. Ekspor data laporan di menu `Laporan`.
-8. Perbarui profil admin dan kata sandi di halaman `Profile`.
+1. Log in as an admin user.
+2. Access `admin/dashboard` for summary statistics.
+3. Manage cars under `Kelola Mobil`.
+4. Manage invoices under `Kelola Invoice`.
+5. Verify or reject transactions under `Kelola Transaksi`.
+6. Manage users under `Kelola User`.
+7. Export report data from `Laporan`.
+8. Update admin profile and password from `Profile`.
 
-## Persiapan dan Build
+## Setup and Build
 
-1. Salin file lingkungan:
+1. Copy environment file:
 
    ```bash
    cp .env.example .env
    ```
 
-2. Instal dependensi PHP:
+2. Install PHP dependencies:
 
    ```bash
    composer install
    ```
 
-3. Instal dependensi Node:
+3. Install Node dependencies:
 
    ```bash
    npm install
    ```
 
-4. Buat kunci aplikasi:
+4. Generate the application key:
 
    ```bash
    php artisan key:generate
    ```
 
-5. Jalankan migrasi dan seeder jika diperlukan:
+5. Run migrations and seeders if needed:
 
    ```bash
    php artisan migrate
    php artisan db:seed
    ```
 
-6. Build aset frontend:
+6. Build frontend assets:
 
    ```bash
    npm run dev
    ```
 
-7. Jalankan aplikasi secara lokal:
+7. Run the app locally:
 
    ```bash
    php artisan serve
    ```
 
-## Fitur Utama
+## Main Features
 
-- Dashboard berbasis peran untuk pengguna dan admin
-- Penelusuran mobil dan pembuatan invoice penyewaan
-- Unggah bukti pembayaran dan verifikasi transaksi
-- Manajemen profil untuk semua pengguna
-- Styling menggunakan Tailwind CSS dan interaktivitas Alpine.js
-- Notifikasi menggunakan SweetAlert2
+- Role-based dashboard for users and admins
+- Car browsing and rental invoice creation
+- Payment transaction upload and verification
+- Profile management for all users
+- Tailwind CSS-based styling and Alpine.js interactivity
+- SweetAlert2 notifications for alerts
 
-## Struktur Proyek
+## Project Structure
 
-### Root
+Struktur proyek Velodrive mengikuti standar Laravel dengan organisasi yang jelas:
 
-- `artisan` � entrypoint CLI Laravel
-- `composer.json` � manifest dependensi PHP
-- `package.json` � manifest dependensi JavaScript
-- `tailwind.config.cjs` � konfigurasi Tailwind CSS v4
-- `postcss.config.cjs` � konfigurasi PostCSS
-- `vite.config.js` � konfigurasi build Vite
-- `IMPLEMENTATION.md` � rencana implementasi migrasi
-- `structure.md` � ringkasan struktur proyek
+```
+velodrive-web/
+├── app/                          # Core aplikasi Laravel
+│   ├── Enums/                    # Enum types (status, roles, dll)
+│   ├── Events/                   # Event classes
+│   ├── Http/
+│   │   ├── Controllers/          # HTTP controllers (user & admin)
+│   │   ├── Middleware/           # Custom middleware
+│   │   └── Requests/             # Form request validation
+│   ├── Jobs/                     # Queued jobs
+│   ├── Listeners/                # Event listeners
+│   ├── Models/                   # Eloquent models
+│   ├── Notifications/            # Notification classes
+│   ├── Providers/                # Service providers
+│   ├── Rules/                    # Custom validation rules
+│   ├── Services/                 # Business logic & services
+│   └── Traits/                   # Reusable traits
+├── bootstrap/                    # Bootstrap aplikasi & cache
+├── config/                       # File konfigurasi aplikasi
+├── database/
+│   ├── factories/                # Model factories untuk testing
+│   ├── migrations/               # Database migrations
+│   ├── seeders/
+│   │   └── sample-data/          # Sample data untuk development
+│   └── seeders/                  # Database seeders
+├── public/                       # Entry point publik
+│   ├── build/                    # Built assets (Vite output)
+│   ├── css/                      # CSS files (compiled)
+│   ├── image/                    # Image assets
+│   ├── uploads/                  # User uploads (payment proofs, etc)
+│   ├── index.php                 # Application entry point
+│   └── robots.txt
+├── resources/
+│   ├── css/                      # Source CSS files
+│   ├── js/
+│   │   ├── app.js               # Main app script
+│   │   ├── admin.js             # Admin scripts
+│   │   └── bootstrap.js         # Bootstrap script
+│   └── views/                    # Blade templates
+│       ├── admin/               # Admin templates
+│       ├── auth/                # Authentication templates
+│       ├── components/          # Reusable components
+│       ├── errors/              # Error pages (404, 500, etc)
+│       ├── layouts/             # Layout templates
+│       └── user/                # User templates
+├── routes/
+│   ├── console.php              # Artisan commands
+│   └── web.php                  # Web routes
+├── storage/
+│   ├── app/
+│   │   ├── private/             # Private file storage
+│   │   └── public/              # Public file storage
+│   ├── framework/               # Framework cache & views
+│   ├── logs/                    # Application logs
+│   └── sessions/                # Session data
+├── tests/                       # Unit & feature tests
+├── vendor/                      # Composer dependencies
+├── composer.json                # PHP dependencies
+├── package.json                 # Node.js dependencies
+├── vite.config.js              # Vite bundler configuration
+├── tailwind.config.cjs         # Tailwind CSS configuration
+├── postcss.config.cjs          # PostCSS configuration
+├── phpunit.xml                 # PHPUnit testing config
+└── .env                        # Environment variables (not in repo)
+```
 
-### app
+### Direktori Penting
 
-- `app/Http/Controllers/` � controller aplikasi
-- `app/Models/` � model Eloquent
-- `app/Notifications/` � kelas notifikasi
-- `app/Providers/` � service provider
+**App Directory (`app/`)**
+- **Controllers** — Menangani HTTP requests dan business logic
+- **Models** — Eloquent models untuk database interaction
+- **Services** — Reusable business logic dan service classes
+- **Requests** — Form validation dan data normalization
+- **Middleware** — HTTP middleware untuk filtering requests
+- **Events & Listeners** — Event-driven architecture
+- **Jobs** — Background jobs untuk queue processing
+- **Rules** — Custom validation rules
+- **Traits** — Reusable trait untuk code sharing
 
-### resources
+**Database (`database/`)**
+- **Migrations** — Schema changes dan table definitions
+- **Seeders** — Populate database dengan data dummy
+- **Factories** — Generate fake data untuk testing
 
-- `resources/css/` � berkas entry Tailwind CSS
-- `resources/js/` � berkas entry Alpine.js dan JavaScript
-- `resources/views/` � template Blade untuk layout, admin, dan pengguna
+**Resources (`resources/`)**
+- **Views** — Blade templates untuk rendering UI
+- **CSS/JS** — Source assets sebelum compilation
 
-### public
+**Public (`public/`)**
+- **Uploads** — User-generated files (payment proofs, documents)
+- **Build** — Compiled assets dari Vite
 
-- `public/index.php` � entrypoint publik
-- `public/css/` � aset CSS hasil build
-- `public/image/` � gambar statis
+File konfigurasi utama:
 
-### routes
+- `composer.json` — manifest dependensi PHP
+- `package.json` — manifest dependensi JavaScript
+- `postcss.config.cjs` — konfigurasi PostCSS
+- `tailwind.config.cjs` — konfigurasi Tailwind CSS
+- `vite.config.js` — pengaturan bundler Vite
 
-- `routes/web.php` � route web
-- `routes/console.php` � perintah konsol
+### Notes
 
-### database
-
-- `database/migrations/` � migrasi skema basis data
-- `database/seeders/` � kelas seeder basis data
-- `database/factories/` � factory model
-
-### tests
-
-- `tests/Feature/` � pengujian fitur
-- `tests/Unit/` � pengujian unit
-
-## Catatan
-
-- Aplikasi ini menggunakan template Laravel Blade.
-- Frontend menggunakan Tailwind CSS dan Alpine.js.
-- Dashboard admin dan pengguna dipisahkan berdasarkan route dan peran.
+- The app uses Laravel Blade templates.
+- Tailwind CSS and Alpine.js power the frontend behavior.
+- Admin and user dashboards are separated by route and role.
